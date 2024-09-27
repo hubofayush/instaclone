@@ -1,0 +1,8 @@
+CLOUD_NAME = duklubv0l
+API_KEY = 416838789673828
+API_SECRET = 4INIeDwR-v3BYTdr5ta0Fgjf-kA
+MONGO_URI=mongodb+srv://ayush:ayush123@db.mq3x6.mongodb.net/
+PORT = 3000
+SECRET_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+

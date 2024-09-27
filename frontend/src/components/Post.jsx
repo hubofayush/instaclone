@@ -165,76 +165,147 @@ const Post = ({ post }) => {
           </DialogContent>
         </Dialog>
       </div>
-      <img
-        className="rounded-sm my-2 w-full aspect-square object-cover"
-        src={post.image}
-        alt="post_img"
-      />
+      {post.image ? (
+        <>
+          <img
+            className="rounded-sm my-2 w-full aspect-square object-cover"
+            src={post.image}
+            alt="post_img"
+          />{" "}
+          <div className="flex items-center justify-between my-2">
+            <div className="flex items-center gap-3">
+              {liked ? (
+                <FaHeart
+                  onClick={likeOrDislikeHandler}
+                  size={"24"}
+                  className="cursor-pointer text-red-600"
+                />
+              ) : (
+                <FaRegHeart
+                  onClick={likeOrDislikeHandler}
+                  size={"22px"}
+                  className="cursor-pointer hover:text-gray-600"
+                />
+              )}
 
-      <div className="flex items-center justify-between my-2">
-        <div className="flex items-center gap-3">
-          {liked ? (
-            <FaHeart
-              onClick={likeOrDislikeHandler}
-              size={"24"}
-              className="cursor-pointer text-red-600"
-            />
-          ) : (
-            <FaRegHeart
-              onClick={likeOrDislikeHandler}
-              size={"22px"}
+              <MessageCircle
+                onClick={() => {
+                  dispatch(setSelectedPost(post));
+                  setOpen(true);
+                }}
+                className="cursor-pointer hover:text-gray-600"
+              />
+              <Send className="cursor-pointer hover:text-gray-600" />
+            </div>
+            <Bookmark
+              onClick={bookmarkHandler}
               className="cursor-pointer hover:text-gray-600"
             />
+          </div>
+          <span className="font-medium block mb-2">{postLike} likes</span>
+          <p>
+            <span className="font-medium mr-2">{post.author?.username}</span>
+            {post.caption}
+          </p>
+          {comment.length > 0 && (
+            <span
+              onClick={() => {
+                dispatch(setSelectedPost(post));
+                setOpen(true);
+              }}
+              className="cursor-pointer text-sm text-gray-400"
+            >
+              View all {comment.length} comments
+            </span>
           )}
+          <CommentDialog open={open} setOpen={setOpen} />
+          <div className="flex items-center justify-between">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              value={text}
+              onChange={changeEventHandler}
+              className="outline-none text-sm w-full"
+            />
+            {text && (
+              <span
+                onClick={commentHandler}
+                className="text-[#3BADF8] cursor-pointer"
+              >
+                Post
+              </span>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <p>
+            <span className="font-medium mr-2">{post.author?.username}</span>
+            <br />
+            {post.caption}
+          </p>
+          <div className="flex items-center justify-between my-2">
+            <div className="flex items-center gap-3">
+              {liked ? (
+                <FaHeart
+                  onClick={likeOrDislikeHandler}
+                  size={"24"}
+                  className="cursor-pointer text-red-600"
+                />
+              ) : (
+                <FaRegHeart
+                  onClick={likeOrDislikeHandler}
+                  size={"22px"}
+                  className="cursor-pointer hover:text-gray-600"
+                />
+              )}
 
-          <MessageCircle
-            onClick={() => {
-              dispatch(setSelectedPost(post));
-              setOpen(true);
-            }}
-            className="cursor-pointer hover:text-gray-600"
-          />
-          <Send className="cursor-pointer hover:text-gray-600" />
-        </div>
-        <Bookmark
-          onClick={bookmarkHandler}
-          className="cursor-pointer hover:text-gray-600"
-        />
-      </div>
-      <span className="font-medium block mb-2">{postLike} likes</span>
-      <p>
-        <span className="font-medium mr-2">{post.author?.username}</span>
-        {post.caption}
-      </p>
-      {comment.length > 0 && (
-        <span
-          onClick={() => {
-            dispatch(setSelectedPost(post));
-            setOpen(true);
-          }}
-          className="cursor-pointer text-sm text-gray-400"
-        >
-          View all {comment.length} comments
-        </span>
+              <MessageCircle
+                onClick={() => {
+                  dispatch(setSelectedPost(post));
+                  setOpen(true);
+                }}
+                className="cursor-pointer hover:text-gray-600"
+              />
+              <Send className="cursor-pointer hover:text-gray-600" />
+            </div>
+            <Bookmark
+              onClick={bookmarkHandler}
+              className="cursor-pointer hover:text-gray-600"
+            />
+          </div>
+          <span className="font-medium block mb-2">{postLike} likes</span>
+          {comment.length > 0 && (
+            <span
+              onClick={() => {
+                dispatch(setSelectedPost(post));
+                setOpen(true);
+              }}
+              className="cursor-pointer text-sm text-gray-400"
+            >
+              View all {comment.length} comments
+            </span>
+          )}
+          <CommentDialog open={open} setOpen={setOpen} />
+          <div className="flex items-center justify-between">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              value={text}
+              onChange={changeEventHandler}
+              className="outline-none text-sm w-full"
+            />
+            {text && (
+              <span
+                onClick={commentHandler}
+                className="text-[#3BADF8] cursor-pointer"
+              >
+                Post
+              </span>
+            )}
+          </div>
+        </>
       )}
-      <CommentDialog open={open} setOpen={setOpen} />
-      <div className="flex items-center justify-between">
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          value={text}
-          onChange={changeEventHandler}
-          className="outline-none text-sm w-full"
-        />
-        {text && (
-          <span
-            onClick={commentHandler}
-            className="text-[#3BADF8] cursor-pointer"
-          >
-            Post
-          </span>
-        )}
-      </div>
     </div>
   );
 };
